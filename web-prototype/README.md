@@ -1,6 +1,6 @@
-# Voice-Controlled Metronome Prototype
+# Voice-Controlled Metronome Web Prototype
 
-A web-based metronome with voice command support.
+> For repository branch structure and overall project information, see the [main README](../README.md).
 
 ## Features
 
@@ -10,6 +10,7 @@ A web-based metronome with voice command support.
   - "a bit faster" / "a bit slower" - Fine adjustments (±2 BPM)
   - "much faster" / "much slower" - Large adjustments (±10 BPM)
   - "set 120 bpm" - Set specific tempo (20-300 BPM range)
+  - "faster/slower by X" - Adjust by specific amount
 
 - **Precise Timing**: Uses Web Audio API with lookahead scheduler for accurate timing
 - **Visual Feedback**: Real-time BPM, elapsed time, and status display
@@ -21,7 +22,9 @@ A web-based metronome with voice command support.
 Works best in:
 - ✅ Chrome (desktop)
 - ✅ Edge (desktop)
-- ⚠️ Firefox (limited speech recognition support)
+
+Limited support in:
+- ⚠️ Firefox (Web Speech API support varies)
 - ⚠️ Mobile browsers (varies by platform)
 
 ## Usage
