@@ -162,7 +162,7 @@ function handleCommand(text) {
   else if (/\bslower\b/.test(text)) delta = -5;
 
   if (delta !== 0) {
-    currentBpm = Math.max(20, Math.min(300, currentBpm + delta));
+    currentBpm = Math.max(30, Math.min(300, currentBpm + delta));
     bpmEl.textContent = currentBpm;
     speakString((delta > 0 ? 'Faster ' : 'Slower ') + currentBpm);
     return;
@@ -171,14 +171,14 @@ function handleCommand(text) {
   // optionally: set by "faster by X" numeric
   const incMatch = text.match(/faster\s+by\s+(\d{1,3})/);
   if (incMatch) {
-    currentBpm = Math.max(20, Math.min(300, currentBpm + parseInt(incMatch[1], 10)));
+    currentBpm = Math.max(30, Math.min(300, currentBpm + parseInt(incMatch[1], 10)));
     bpmEl.textContent = currentBpm;
     speakString(`Faster ${currentBpm}`);
     return;
   }
   const decMatch = text.match(/slower\s+by\s+(\d{1,3})/);
   if (decMatch) {
-    currentBpm = Math.max(20, Math.min(300, currentBpm - parseInt(decMatch[1], 10)));
+    currentBpm = Math.max(30, Math.min(300, currentBpm - parseInt(decMatch[1], 10)));
     bpmEl.textContent = currentBpm;
     speakString(`Slower ${currentBpm}`);
     return;
