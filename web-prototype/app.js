@@ -17,7 +17,7 @@ let scheduleAheadTime = 0.1; // seconds to schedule ahead
 let lookahead = 25.0;        // ms between scheduler runs
 let schedulerTimerID = null;
 
-// Announcements: every N seconds
+// Announcements: every N seconds (provides periodic time updates while practicing)
 const announceIntervalSeconds = 50;
 let lastAnnouncedMul = 0;
 
@@ -143,7 +143,7 @@ function handleCommand(text) {
   const setMatch = text.match(/set\s+(\d{1,3})\s*(bpm)?/);
   if (setMatch) {
     const n = parseInt(setMatch[1], 10);
-    if (n >= 30 && n <= 300) {
+    if (n >= 20 && n <= 300) {
       currentBpm = n;
       bpmEl.textContent = currentBpm;
       speakString(`Set to ${currentBpm} beats per minute`);
@@ -153,15 +153,15 @@ function handleCommand(text) {
 
   // faster/slower with modifiers
   let delta = 0;
-  if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
-  else if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
+  if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
+  else if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
   else if (/\bfaster\b/.test(text)) delta = 5;
-  else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -10;
   else if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
+  else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -10;
   else if (/\bslower\b/.test(text)) delta = -5;
 
   if (delta !== 0) {
-    currentBpm = Math.max(30, Math.min(300, currentBpm + delta));
+    currentBpm = Math.max(20, Math.min(300, currentBpm + delta));
     bpmEl.textContent = currentBpm;
     speakString((delta > 0 ? 'Faster ' : 'Slower ') + currentBpm);
     return;
@@ -170,14 +170,14 @@ function handleCommand(text) {
   // optionally: set by "faster by X" numeric
   const incMatch = text.match(/faster\s+by\s+(\d{1,3})/);
   if (incMatch) {
-    currentBpm = Math.max(30, Math.min(300, currentBpm + parseInt(incMatch[1], 10)));
+    currentBpm = Math.max(20, Math.min(300, currentBpm + parseInt(incMatch[1], 10)));
     bpmEl.textContent = currentBpm;
     speakString(`Faster ${currentBpm}`);
     return;
   }
   const decMatch = text.match(/slower\s+by\s+(\d{1,3})/);
   if (decMatch) {
-    currentBpm = Math.max(30, Math.min(300, currentBpm - parseInt(decMatch[1], 10)));
+    currentBpm = Math.max(20, Math.min(300, currentBpm - parseInt(decMatch[1], 10)));
     bpmEl.textContent = currentBpm;
     speakString(`Slower ${currentBpm}`);
     return;

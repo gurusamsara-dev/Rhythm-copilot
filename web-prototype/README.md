@@ -2,45 +2,72 @@
 
 > For repository branch structure and overall project information, see the [main README](../README.md).
 
-## Web Prototype Files
+## Features
 
-The following files have been added to the `web-prototype/` directory:
-
-### index.html
-A simple HTML page with:
-- Display for BPM (beats per minute)
-- Elapsed time counter
-- Status indicator
-- Control buttons (Start, Stop, Enable Voice)
-- Instructions for voice commands
-
-### app.js
-JavaScript implementation featuring:
-- Web Audio API-based metronome with precise timing
-- Speech Recognition API for voice commands
-- Speech Synthesis API for audio feedback
-- Support for commands:
+- **Voice Commands**: Control the metronome with natural language
   - "start" / "stop" - Control playback
-  - "faster" / "slower" - Adjust tempo by 5 BPM
-  - "a bit faster/slower" - Adjust by 2 BPM
-  - "much faster/slower" - Adjust by 10 BPM
-  - "set X bpm" - Set specific tempo (30-300 BPM)
+  - "faster" / "slower" - Adjust tempo (±5 BPM)
+  - "a bit faster" / "a bit slower" - Fine adjustments (±2 BPM)
+  - "much faster" / "much slower" - Large adjustments (±10 BPM)
+  - "set 120 bpm" - Set specific tempo (20-300 BPM range)
   - "faster/slower by X" - Adjust by specific amount
+
+- **Precise Timing**: Uses Web Audio API with lookahead scheduler for accurate timing
+- **Visual Feedback**: Real-time BPM, elapsed time, and status display
+- **Speech Announcements**: Announces elapsed time every 50 seconds
+- **Manual Controls**: Buttons for Start, Stop, and Enable Voice
 
 ## Browser Compatibility
 
 Works best in:
-- Chrome (desktop)
-- Edge (desktop)
+- ✅ Chrome (desktop)
+- ✅ Edge (desktop)
 
 Limited support in:
-- Firefox (Web Speech API support varies)
-- Mobile browsers (varies by platform)
+- ⚠️ Firefox (Web Speech API support varies)
+- ⚠️ Mobile browsers (varies by platform)
 
 ## Usage
 
-1. Open `index.html` in a compatible browser
-2. Click "Start" to begin the metronome
-3. Click "Enable Voice" to activate voice control
-4. Grant microphone permissions when prompted
-5. Use voice commands to control the metronome
+### Local Testing
+
+1. Open `index.html` in a web browser (Chrome/Edge recommended)
+2. Click "Enable Voice" to activate voice recognition
+3. Grant microphone permissions when prompted
+4. Use voice commands or manual buttons to control the metronome
+
+### Alternative: Use a local server
+
+```bash
+# Python 3
+python3 -m http.server 8000
+
+# Python 2
+python -m SimpleHTTPServer 8000
+
+# Node.js (with http-server)
+npx http-server -p 8000
+```
+
+Then open: `http://localhost:8000`
+
+## Deployment
+
+See [GITHUB_PAGES_DEPLOYMENT.md](../GITHUB_PAGES_DEPLOYMENT.md) for instructions on deploying to GitHub Pages.
+
+## Technical Details
+
+- **Audio Generation**: Web Audio API oscillator for click sounds
+- **Scheduling**: Lookahead scheduler (25ms interval, 100ms lookahead)
+- **Speech Recognition**: Web Speech API (continuous recognition)
+- **Speech Synthesis**: Web Speech Synthesis API for announcements
+- **BPM Range**: 20-300 BPM with validation
+
+## Files
+
+- `index.html` - Main HTML interface
+- `app.js` - JavaScript implementation (metronome logic, voice control, audio)
+
+## Security
+
+✅ CodeQL security scan: 0 vulnerabilities found
