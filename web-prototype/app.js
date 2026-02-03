@@ -156,8 +156,7 @@ function handleCommand(text) {
   if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
   else if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
   else if (/\bfaster\b/.test(text)) delta = 5;
-
-  if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
+  else if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
   else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -10;
   else if (/\bslower\b/.test(text)) delta = -5;
 

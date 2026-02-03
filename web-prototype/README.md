@@ -1,15 +1,6 @@
 # Voice-Controlled Metronome Web Prototype
 
-## Branch Structure
-
-This implementation requires the following branch structure:
-
-- **main** - Stable branch (already exists)
-- **development** - Development branch (should be created from main)
-- **test** - Test branch (should be created from development)
-- **feature/voice-metronome-v1** - Feature branch (should be created from development)
-
-Note: Local branches have been created in this workspace, but pushing new branches to the remote repository requires appropriate permissions. The web prototype files have been added to the current working branch.
+> For repository branch structure and overall project information, see the [main README](../README.md).
 
 ## Web Prototype Files
 
