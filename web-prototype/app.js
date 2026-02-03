@@ -143,7 +143,7 @@ function handleCommand(text) {
   const setMatch = text.match(/set\s+(\d{2,3})\s*(bpm)?/);
   if (setMatch) {
     const n = parseInt(setMatch[1], 10);
-    if (n >= 30 && n <= 300) {
+    if (n >= 20 && n <= 300) {
       currentBpm = n;
       bpmEl.textContent = currentBpm;
       speakString(`Set to ${currentBpm} beats per minute`);
