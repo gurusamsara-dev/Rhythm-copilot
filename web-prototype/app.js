@@ -140,7 +140,7 @@ function handleCommand(text) {
   }
 
   // set X bpm
-  const setMatch = text.match(/set\s+(\d{2,3})\s*(bpm)?/);
+  const setMatch = text.match(/set\s+(\d{1,3})\s*(bpm)?/);
   if (setMatch) {
     const n = parseInt(setMatch[1], 10);
     if (n >= 30 && n <= 300) {
@@ -153,11 +153,11 @@ function handleCommand(text) {
 
   // faster/slower with modifiers
   let delta = 0;
-  if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
-  else if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
+  if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
+  else if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
   else if (/\bfaster\b/.test(text)) delta = 5;
-  else if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
   else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -10;
+  else if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
   else if (/\bslower\b/.test(text)) delta = -5;
 
   if (delta !== 0) {
