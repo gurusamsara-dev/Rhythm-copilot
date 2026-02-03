@@ -67,7 +67,7 @@ A voice-controlled metronome web application prototype with hands-free operation
 
 ### Key Components
 1. **Audio Engine**: Web Audio API with oscillator-based click generation
-2. **Scheduler**: Lookahead scheduling with 100ms buffer
+2. **Scheduler**: Lookahead scheduling with 0.1 second (100ms) buffer
 3. **Voice Recognition**: Continuous speech recognition with command parsing
 4. **TTS Announcements**: Periodic time announcements via Speech Synthesis API
 
