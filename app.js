@@ -1,6 +1,9 @@
 // Simple web metronome + speech command prototype
 // Works best in Chrome/Edge desktop. Mobile/Firefox support varies.
 
+const LANGUAGE_KEY = 'metronome_language';
+const DEFAULT_LANGUAGE = 'en-US';
+
 let audioCtx = null;
 let isPlaying = false;
 let currentBpm = 100;
@@ -86,7 +89,9 @@ function updateElapsedAndAnnounce() {
 function speakString(s) {
   if (!window.speechSynthesis) return;
   const u = new SpeechSynthesisUtterance(s);
-  // optional: set voice / rate / pitch
+  // Load language preference from localStorage
+  const savedLang = localStorage.getItem(LANGUAGE_KEY) || DEFAULT_LANGUAGE;
+  u.lang = savedLang;
   u.rate = 1.0;
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(u);
@@ -105,7 +110,9 @@ function enableVoice() {
   recognition = new SpeechRecognition();
   recognition.continuous = true;
   recognition.interimResults = false;
-  recognition.lang = 'en-US';
+  // Load language preference from localStorage
+  const savedLang = localStorage.getItem(LANGUAGE_KEY) || DEFAULT_LANGUAGE;
+  recognition.lang = savedLang;
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
@@ -154,16 +161,16 @@ function handleCommand(text) {
   // faster/slower with modifiers
   let delta = 0;
   if (/\ba bit faster\b/.test(text) || /\ba little faster\b/.test(text)) delta = 2;
-  else if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 10;
-  else if (/\bfaster\b/.test(text)) delta = 5;
+  else if (/\bmuch faster\b/.test(text) || /\bway faster\b/.test(text)) delta = 25;
+  else if (/\bfaster\b/.test(text)) delta = 15;
   else if (/\ba bit slower\b/.test(text) || /\ba little slower\b/.test(text)) delta = -2;
-  else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -10;
-  else if (/\bslower\b/.test(text)) delta = -5;
+  else if (/\bmuch slower\b/.test(text) || /\bway slower\b/.test(text)) delta = -25;
+  else if (/\bslower\b/.test(text)) delta = -15;
 
   if (delta !== 0) {
     currentBpm = Math.max(20, Math.min(300, currentBpm + delta));
     bpmEl.textContent = currentBpm;
-    speakString((delta > 0 ? 'Faster ' : 'Slower ') + currentBpm);
+    speakString(currentBpm.toString());
     return;
   }
 
@@ -172,14 +179,14 @@ function handleCommand(text) {
   if (incMatch) {
     currentBpm = Math.max(20, Math.min(300, currentBpm + parseInt(incMatch[1], 10)));
     bpmEl.textContent = currentBpm;
-    speakString(`Faster ${currentBpm}`);
+    speakString(currentBpm.toString());
     return;
   }
   const decMatch = text.match(/slower\s+by\s+(\d{1,3})/);
   if (decMatch) {
     currentBpm = Math.max(20, Math.min(300, currentBpm - parseInt(decMatch[1], 10)));
     bpmEl.textContent = currentBpm;
-    speakString(`Slower ${currentBpm}`);
+    speakString(currentBpm.toString());
     return;
   }
 
