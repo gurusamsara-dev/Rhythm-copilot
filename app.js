@@ -221,9 +221,18 @@ document.getElementById('voiceBtn').addEventListener('click', () => {
 });
 
 // Set version number on page load
-document.addEventListener('DOMContentLoaded', () => {
+function setVersionNumber() {
   const versionEl = document.getElementById('version');
   if (versionEl) {
     versionEl.textContent = VERSION;
   }
+}
+
+// Export for use in other pages
+if (typeof window !== 'undefined') {
+  window.RHYTHM_COPILOT_VERSION = VERSION;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setVersionNumber();
 });

@@ -36,14 +36,14 @@
   
   <script src="options.js"></script>
   <script>
-    // Set version number on page load
+    // Set version number on page load using the exported version from app.js
     document.addEventListener('DOMContentLoaded', () => {
-      const VERSION = 'v1.1.0';
       const versionEl = document.getElementById('version');
-      if (versionEl) {
-        versionEl.textContent = VERSION;
+      if (versionEl && window.RHYTHM_COPILOT_VERSION) {
+        versionEl.textContent = window.RHYTHM_COPILOT_VERSION;
       }
     });
   </script>
+  <script src="app.js"></script>
 </body>
 </html>
