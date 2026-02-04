@@ -1,6 +1,7 @@
 // Simple web metronome + speech command prototype
 // Works best in Chrome/Edge desktop. Mobile/Firefox support varies.
 
+const VERSION = 'v1.1.0';
 const LANGUAGE_KEY = 'metronome_language';
 const DEFAULT_LANGUAGE = 'en-US';
 
@@ -62,6 +63,8 @@ function startMetronome() {
   }, lookahead);
   elapsedInterval = setInterval(updateElapsedAndAnnounce, 100);
   statusEl.textContent = 'Status: playing (voice enabled)';
+  statusEl.className = 'status playing';
+  document.getElementById('bpmDisplay').classList.add('playing');
 }
 
 // stop metronome
@@ -70,6 +73,8 @@ function stopMetronome() {
   if (schedulerTimerID) clearInterval(schedulerTimerID);
   if (elapsedInterval) clearInterval(elapsedInterval);
   statusEl.textContent = 'Status: stopped';
+  statusEl.className = 'status stopped';
+  document.getElementById('bpmDisplay').classList.remove('playing');
 }
 
 // update elapsed and announce multiples of announceIntervalSeconds
@@ -206,9 +211,19 @@ document.getElementById('voiceBtn').addEventListener('click', () => {
   if (!voiceEnabled) {
     enableVoice();
     document.getElementById('voiceBtn').textContent = 'Voice ON';
+    document.getElementById('voiceBtn').classList.add('active');
   } else {
     voiceEnabled = false;
     if (recognition) recognition.stop();
     document.getElementById('voiceBtn').textContent = 'Enable Voice';
+    document.getElementById('voiceBtn').classList.remove('active');
+  }
+});
+
+// Set version number on page load
+document.addEventListener('DOMContentLoaded', () => {
+  const versionEl = document.getElementById('version');
+  if (versionEl) {
+    versionEl.textContent = VERSION;
   }
 });

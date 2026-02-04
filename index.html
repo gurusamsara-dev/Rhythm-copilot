@@ -4,34 +4,54 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rhythm Copilot - Voice-Controlled Metronome</title>
-  <style>
-    body { font-family: system-ui, Arial; margin: 2rem; }
-    button { margin: 0.25rem; padding: 0.5rem 1rem; font-size: 1rem; }
-    #bpm { font-weight: 700; font-size: 1.5rem; }
-    #status { margin-top: .5rem; color: #444; }
-    .options-link {
-      margin-left: 1rem;
-      padding: 0.5rem 1rem;
-      background: #6c757d;
-      color: white;
-      text-decoration: none;
-      border-radius: 4px;
-      display: inline-block;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Rhythm Copilot (web prototype)</h1>
-  <div>BPM: <span id="bpm">100</span></div>
-  <div>Elapsed: <span id="elapsed">0.0</span>s</div>
-  <div id="status">Status: stopped</div>
-  <div style="margin-top:1rem;">
-    <button id="startBtn">Start</button>
-    <button id="stopBtn">Stop</button>
-    <button id="voiceBtn">Enable Voice</button>
-    <a href="options.html" class="options-link">⚙️ Options</a>
+  <!-- Version Display -->
+  <div class="version" id="version">v1.1.0</div>
+  
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Rhythm Copilot</h1>
+      <div class="subtitle">Voice-Controlled Metronome</div>
+    </div>
+    
+    <!-- BPM Display -->
+    <div class="bpm-display" id="bpmDisplay">
+      <div class="bpm-label">BPM</div>
+      <div class="bpm-value" id="bpm">100</div>
+    </div>
+    
+    <!-- Elapsed Time Display -->
+    <div class="elapsed-display">
+      <div class="elapsed-label">Elapsed Time</div>
+      <div class="elapsed-value"><span id="elapsed">0.0</span>s</div>
+    </div>
+    
+    <!-- Status -->
+    <div class="status stopped" id="status">Status: stopped</div>
+    
+    <!-- Controls -->
+    <div class="controls">
+      <div class="btn-group">
+        <button id="startBtn" class="btn btn-primary">Start</button>
+        <button id="stopBtn" class="btn btn-secondary">Stop</button>
+      </div>
+      <button id="voiceBtn" class="btn btn-tertiary">Enable Voice</button>
+      <a href="options.html" class="btn btn-options">⚙️ Options</a>
+    </div>
+    
+    <!-- Instructions -->
+    <div class="instructions">
+      <div class="instructions-title">Voice Commands</div>
+      <div class="instructions-content">
+        Say: "start", "stop", "faster", "slower", "a bit faster", "much slower", or "set 120 bpm"
+      </div>
+    </div>
   </div>
-  <p>Say: "start", "stop", "faster", "slower", "a bit faster", "much slower", or "set 120 bpm".</p>
+  
   <script src="app.js"></script>
 </body>
 </html>
