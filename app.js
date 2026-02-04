@@ -1,6 +1,9 @@
 // Simple web metronome + speech command prototype
 // Works best in Chrome/Edge desktop. Mobile/Firefox support varies.
 
+const LANGUAGE_KEY = 'metronome_language';
+const DEFAULT_LANGUAGE = 'en-US';
+
 let audioCtx = null;
 let isPlaying = false;
 let currentBpm = 100;
@@ -87,7 +90,7 @@ function speakString(s) {
   if (!window.speechSynthesis) return;
   const u = new SpeechSynthesisUtterance(s);
   // Load language preference from localStorage
-  const savedLang = localStorage.getItem('metronome_language') || 'en-US';
+  const savedLang = localStorage.getItem(LANGUAGE_KEY) || DEFAULT_LANGUAGE;
   u.lang = savedLang;
   u.rate = 1.0;
   window.speechSynthesis.cancel();
@@ -108,7 +111,7 @@ function enableVoice() {
   recognition.continuous = true;
   recognition.interimResults = false;
   // Load language preference from localStorage
-  const savedLang = localStorage.getItem('metronome_language') || 'en-US';
+  const savedLang = localStorage.getItem(LANGUAGE_KEY) || DEFAULT_LANGUAGE;
   recognition.lang = savedLang;
   recognition.onresult = (event) => {
     for (let i = event.resultIndex; i < event.results.length; i++) {

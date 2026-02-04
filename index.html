@@ -9,6 +9,15 @@
     button { margin: 0.25rem; padding: 0.5rem 1rem; font-size: 1rem; }
     #bpm { font-weight: 700; font-size: 1.5rem; }
     #status { margin-top: .5rem; color: #444; }
+    .options-link {
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      background: #6c757d;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -20,7 +29,7 @@
     <button id="startBtn">Start</button>
     <button id="stopBtn">Stop</button>
     <button id="voiceBtn">Enable Voice</button>
-    <a href="options.html" style="margin-left: 1rem; padding: 0.5rem 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 4px; display: inline-block;">⚙️ Options</a>
+    <a href="options.html" class="options-link">⚙️ Options</a>
   </div>
   <p>Say: "start", "stop", "faster", "slower", "a bit faster", "much slower", or "set 120 bpm".</p>
   <script src="app.js"></script>

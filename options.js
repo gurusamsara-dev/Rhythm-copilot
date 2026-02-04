@@ -1,5 +1,8 @@
 // options.js - Language selection for Rhythm Copilot
 
+const LANGUAGE_KEY = 'metronome_language';
+const DEFAULT_LANGUAGE = 'en-US';
+
 // Available languages with their codes and names
 const languages = [
   { code: 'en-US', name: 'English (US)' },
@@ -22,20 +25,25 @@ const languages = [
 
 // Get current language from localStorage or default to en-US
 function getCurrentLanguage() {
-  return localStorage.getItem('metronome_language') || 'en-US';
+  return localStorage.getItem(LANGUAGE_KEY) || DEFAULT_LANGUAGE;
 }
 
 // Save language to localStorage
 function saveLanguage(langCode) {
-  localStorage.setItem('metronome_language', langCode);
+  localStorage.setItem(LANGUAGE_KEY, langCode);
   updateCurrentDisplay(langCode);
 }
 
 // Update the current language display
 function updateCurrentDisplay(langCode) {
   const lang = languages.find(l => l.code === langCode);
-  if (lang) {
-    document.getElementById('currentLangDisplay').textContent = lang.name;
+  const displayEl = document.getElementById('currentLangDisplay');
+  if (lang && displayEl) {
+    displayEl.textContent = lang.name;
+  } else if (displayEl) {
+    // Fallback if language code is not found
+    console.warn('Language code not found:', langCode);
+    displayEl.textContent = langCode + ' (unknown)';
   }
 }
 
